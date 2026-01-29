@@ -1,15 +1,52 @@
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.75) 100%);
+  z-index: 0;
+
+  /* Scanline pattern */
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+
+  opacity: 0.25;
+}
+
 html {
   /* px means "pixels". The base font size is now 15 pixels high */
   font-size: 15px;
   /* Replace PLACEHOLDER with the font-family property value you got from Google Fonts */
   font-family: 'Montserrat', sans-serif;
   color: white;
-  background: linear-gradient(to bottom, #0a38b0, #1e9ffe);
+  background: linear-gradient(
+    -45deg,
+    #0a38b0,
+    #1e9ffe,
+    #0a38b0,
+    #0f52d1
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 25s ease infinite;
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100%;
   margin: 0;
 }
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 100%; }
+  50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 body {
   max-width: 900px;
@@ -20,6 +57,8 @@ body {
   border: 5px solid black;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  position: relative;
+  z-index: 1; /* ensures black box is above CRT layer */
 }
 
 img {
